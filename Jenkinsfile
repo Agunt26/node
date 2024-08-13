@@ -7,7 +7,7 @@ pipeline {
     stage("Clone code from GitHub") {
             steps {
                 script {
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/devopshint/Deploy-NodeApp-to-AWS-EKS-using-Jenkins-Pipeline']])
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/Agunt26/node']])
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
      stage('Build Node JS Docker Image') {
             steps {
                 script {
-                  sh 'docker build -t devopshint/node-app-1.0 .'
+                  sh 'docker build -t agunt2/node-app-1.0 .'
                 }
             }
         }
@@ -30,10 +30,10 @@ pipeline {
         stage('Deploy Docker Image to DockerHub') {
             steps {
                 script {
-                 withCredentials([string(credentialsId: 'devopshintdocker', variable: 'devopshintdocker')]) {
-                    sh 'docker login -u devopshint -p ${devopshintdocker}'
+                 withCredentials([string(credentialsId: 'agunt2docker', variable: 'agunt2docker')]) {
+                    sh 'docker login -u agunt2 -p Abhi@1234'
             }
-            sh 'docker push devopshint/node-app-1.0'
+            sh 'docker push agunt2/node-app-1.0'
         }
             }   
         }
